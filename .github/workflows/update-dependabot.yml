@@ -32,7 +32,7 @@ jobs:
 
       - name: Run Action
         id: dependabot
-        uses: khulnasoft/actions/public/update-dependabot-github-actions@v1
+        uses: khulnasoft/actions/public/update-dependabot-github-actions@main
         with:
           prefix: ci
 
@@ -48,7 +48,7 @@ jobs:
           npx prettier .github/dependabot.yml --write
 
       - name: PR
-        uses: khulnasoft/actions/.github/actions/pr@v1
+        uses: khulnasoft/actions/.github/actions/pr@main
         with:
           commit-message: "${{ env.PR_TYPE }}: Workflow Bot -- Update dependabot.yml"
           branch: ${{ env.NEW_BRANCH }}
@@ -56,4 +56,4 @@ jobs:
           title: "${{ env.PR_TYPE }}: Workflow Bot -- Update dependabot.yml (${{ env.REF_BRANCH }})"
           body: ${{ steps.dependabot.outputs.summary }}
           app_id: ${{ secrets.AUTOMATION_APP_ID }}
-          app_private_key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
+          app_private_key: ${{ secrets.ORG_REPO_TOKEN }}
