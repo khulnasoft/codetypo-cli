@@ -77,7 +77,7 @@ jobs:
 
       - name: Git Status
         id: git-status
-        uses: khulnasoft/actions/public/dirty@v1
+        uses: khulnasoft/actions/public/dirty@main
 
       - name: Echo git_status
         env:
@@ -90,20 +90,20 @@ jobs:
 
       - name: CodeTypo Version Msg
         id: codetypo_version_msg
-        uses: khulnasoft/actions/public/output@v1
+        uses: khulnasoft/actions/public/output@main
         with:
           value: CodeTypo version (${{ env.CODETYPO_VERSION }})
 
       - name: Commit Message
         id: commit_message
-        uses: khulnasoft/actions/public/output@v1
+        uses: khulnasoft/actions/public/output@main
         with:
           value: >-
             Update ${{ steps.codetypo_version_msg.outputs.value }}
 
       - name: Gen PR Body
         id: body
-        uses: khulnasoft/actions/public/pr-body@v1
+        uses: khulnasoft/actions/public/pr-body@main
         with:
           title: ${{ steps.commit_message.outputs.value }}
           message: |
@@ -113,7 +113,7 @@ jobs:
             package.json
 
       - name: Show Summary
-        uses: khulnasoft/actions/public/summary@v1
+        uses: khulnasoft/actions/public/summary@main
         with:
           text: |
             ${{ steps.body.outputs.body }}
@@ -128,7 +128,7 @@ jobs:
 
       - name: PR
         if: steps.git-status.outputs.isDirty
-        uses: khulnasoft/actions/.github/actions/pr@v1
+        uses: khulnasoft/actions/.github/actions/pr@main
         with:
           commit-message: "${{ env.PR_TYPE }}: ${{ steps.commit_message.outputs.value }}"
           branch: ${{ env.NEW_BRANCH }}
@@ -136,4 +136,4 @@ jobs:
           title: "${{ env.PR_TYPE }}: ${{ steps.commit_message.outputs.value }}"
           body: ${{ steps.body.outputs.body }}
           app_id: ${{ secrets.AUTOMATION_APP_ID }}
-          app_private_key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
+          app_private_key: ${{ secrets.ORG_REPO_TOKEN }}
