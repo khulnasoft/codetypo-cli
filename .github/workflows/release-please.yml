@@ -42,7 +42,7 @@ jobs:
 
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.PUBLISH_NPM}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
   publish-docker:
     permissions:
