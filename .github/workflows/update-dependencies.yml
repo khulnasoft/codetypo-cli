@@ -57,18 +57,18 @@ jobs:
 
       - name: Git Status
         id: git-status
-        uses: khulnasoft/actions/public/dirty@v1
+        uses: khulnasoft/actions/public/dirty@main
 
       - name: Gen PR Body
         id: body
-        uses: khulnasoft/actions/public/pr-body@v1
+        uses: khulnasoft/actions/public/pr-body@main
         with:
           title: Update Dependencies
           path: >-
             package.json
 
       - name: Show Summary
-        uses: khulnasoft/actions/public/summary@v1
+        uses: khulnasoft/actions/public/summary@main
         with:
           text: |
             ${{ steps.body.outputs.body }}
@@ -76,7 +76,7 @@ jobs:
             **Status:** ${{ steps.git-status.outputs.isDirty && 'dirty' || 'clean' }}
 
       - name: PR
-        uses: khulnasoft/actions/.github/actions/pr@v1
+        uses: khulnasoft/actions/.github/actions/pr@main
         with:
           commit-message: "chore: Workflow Bot -- Update ALL Dependencies"
           branch: ${{ env.NEW_BRANCH }}
@@ -84,4 +84,4 @@ jobs:
           title: "chore: Workflow Bot -- Update ALL Dependencies (${{ env.REF_BRANCH }})"
           body: ${{ steps.body.outputs.body }}
           app_id: ${{ secrets.AUTOMATION_APP_ID }}
-          app_private_key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}
+          app_private_key: ${{ secrets.ORG_REPO_TOKEN }}
